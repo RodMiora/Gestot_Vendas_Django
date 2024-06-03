@@ -1,0 +1,65 @@
+
+{% load static %}
+
+{% block 'head' %}
+    <link rel="stylesheet" href="{% static 'usuarios/css/cadastro.css' %}">
+{% endblock %}
+
+{% block 'body' %}
+
+    <div class="grid">
+        <h1 class="login__title login__title-gestor">Gestor de Vendas</h1>
+        <h2 class="login__title login__title-gestor"><span class="by-lowercase">by</span> Rodrigo</h2>
+
+        <form action="{% url 'cadastro' %}" method="POST" class="form login">{% csrf_token %}
+            <header class="login__header">
+                <h3 class="login__title">Cadastre-se</h3>
+            </header>
+
+            <div class="login__body">
+                {% if messages %}
+                    <br>
+                    {% for message in messages %}
+                        <section class='alert {{ message.tags }}'>
+                            {{ message }}
+                        </section>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="form__field">
+                    <label for="username">Usuário:</label>
+                    <div class="input-box">
+                        <input type="text" placeholder="Nome de usuário" name="username" id="username" required>
+                    </div>
+                </div>
+
+                <div class="form__field">
+                    <label for="email">E-mail:</label>
+                    <div class="input-box">
+                        <input type="email" name="email" id="email" class="form-control" placeholder="Seu email ..." required>
+                    </div>
+                </div>
+
+                <div class="form__field">
+                    <label for="senha">Senha:</label>
+                    <div class="input-box">
+                        <input type="password" placeholder="Senha" name="password" id="password" required>
+                    </div>
+                </div>
+
+                <div class="form__field">
+                    <label for="confirmar_senha">Confirmar senha:</label>
+                    <div class="input-box">
+                        <input type="password" name="confirmar_senha" id="confirmar_senha" class="form-control" placeholder="Digite sua senha novamente ..." required>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="login__footer">
+                <input type="submit" value="Cadastrar" class="btn btn-success">
+                <a href="{% url 'login' %}" class="btn btn-dark-color-outline">Já possuo uma conta</a>
+            </footer>
+        </form>
+    </div>
+
+{% endblock 'body' %}

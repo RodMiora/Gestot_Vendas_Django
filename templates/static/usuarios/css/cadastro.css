@@ -1,0 +1,118 @@
+/* Definições de cores */
+
+
+  
+
+:root {
+    --primary-color: #1dabb8; /* Cor principal */
+    --secondary-color: #282830; /* Cor secundária */
+    --text-color: #666; /* Cor do texto */
+    --gridMaxWidth: 35%;
+    --gridWidth: 90%;
+}
+
+
+.grid {
+    inline-size: var(--gridWidth);
+    margin-inline: auto;
+    max-inline-size: var(--gridMaxWidth);
+  }
+
+body{
+    background-color: #f0f0f0; /* Altere essa cor conforme necessário */
+    margin: 0;
+    font-family: Arial, sans-serif; /* Exemplo de fonte padrão */
+}
+
+
+/* Estilos para o cabeçalho */
+.login__header {
+    background-color: var(--secondary-color);
+    border-top-left-radius: var(--loginBorderRadius);
+    border-top-right-radius: var(--loginBorderRadius);
+    color: #c2b508;
+    padding: 1em;
+    text-align: center;
+}
+
+.login__title {
+    font-size: 2rem;
+    margin: 0;
+}
+
+.login__title-gestor {
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* Estilos para o corpo do formulário */
+.login__body {
+    background-color: #fcf8f8;
+    padding: 1.5em;
+    position: relative;
+}
+
+/* Estilos para os campos de entrada */
+.login input[type='text'],
+.login input[type='password'],
+.login input[type='email'] {
+    
+    border: 0.0625em solid #0c0c0c;
+    padding: 1em 1.25em;
+    width: 100%;
+    
+}
+
+.login label {
+    font-weight: bold;
+}
+
+/* Estilos para os botões */
+.login input[type='submit'],
+.login .btn {
+    background-color: var(--primary-color);
+    border-radius: var(--loginInputBorderRadius);
+    color: #ffffff;
+    font-weight: 700;
+    padding: 0.75em 1.25em;
+    transition: background-color 0.3s;
+}
+
+.login input[type='submit']:focus,
+.login input[type='submit']:hover,
+.login .btn:focus,
+.login .btn:hover {
+    background-color: #198d98;
+}
+
+/* Estilos para o rodapé */
+.login__footer {
+    align-items: center;
+    background-color: #ffffff;
+    border-bottom-left-radius: var(--loginBorderRadius);
+    border-bottom-right-radius: var(--loginBorderRadius);
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 1.5em;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
+}
+
+/* Outros estilos comuns podem ser adicionados conforme necessário */
+
+.input-error {
+    padding: 0.50em;
+    margin: 0em 0;
+    border: 2px solid rgb(155, 4, 4);
+    border-radius: 0.10em;
+}
+
+.alert.error {
+    color: red;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+  }
+  

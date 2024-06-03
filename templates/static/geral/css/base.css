@@ -1,0 +1,48 @@
+/* Definições de cores */
+:root {
+    --primary-color: #1dabb8; /* Cor principal */
+    --secondary-color: #282830; /* Cor secundária */
+    --text-color: #666; /* Cor do texto */
+}
+
+/* Estilos para o cabeçalho */
+header {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 10px;
+}
+
+header h1 {
+    margin: 0;
+}
+
+/* Estilos para a navegação */
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Estilos para o rodapé */
+footer {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Outros estilos comuns podem ser adicionados conforme necessário */
