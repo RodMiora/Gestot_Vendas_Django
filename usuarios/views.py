@@ -15,17 +15,19 @@ def cadastro(request):
         username = request.POST.get('username')
         email = request.POST.get('email')
         senha = request.POST.get('senha')
-        confirmar_senha = request.POST.get('confirmar_senha')
+        #confirmar_senha = request.POST.get('confirmar_senha')
+        
+        users = User.objects.filter(username=username)
         
         if users.exists():
             messages.add_message(request, constants.ERROR, "Já existe um usuário com esse nome")
             return redirect('/usuarios/cadastro')
         
-        if senha != confirmar_senha:
+        #if senha != confirmar_senha:
             messages.add_message(request, constants.ERROR, "A senha e o confirmar senha devem ser iguais")
             return redirect('/usuarios/cadastro')
         
-        if len(senha) < 6:
+        #if len(senha) < 6:
             messages.add_message(request, constants.ERROR, "A senha deve ter mais de 6 dígitos")
             return redirect('/usuarios/cadastro')
         
