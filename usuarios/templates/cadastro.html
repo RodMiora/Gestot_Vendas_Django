@@ -1,26 +1,26 @@
 {% load static %}
 
-{% block 'head' %}
+{% block head %}
     <link rel="stylesheet" href="{% static 'usuarios/css/cadastro.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 {% endblock %}
 
-{% block 'body' %}
+{% block body %}
 
     <div class="grid">
         <h1 class="login__title login__title-gestor">Gestor de Vendas</h1>
         <h2 class="login__title login__title-gestor"><span class="by-lowercase">by</span> Rodrigo</h2>
 
-        <form action="{% url 'cadastro' %}" method="POST" class="form login">{% csrf_token %}
+        <form action="{% url 'cadastro' %}" method="POST" class="form login">
+            {% csrf_token %}
             <header class="login__header">
                 <h3 class="login__title">Cadastre-se</h3>
             </header>
 
             <div class="login__body">
                 {% if messages %}
-                    <br>
                     {% for message in messages %}
-                        <section class='alert {{ message.tags }}'>
+                        <section class="alert {% if message.tags %}{{ message.tags }}{% endif %}">
                             {{ message }}
                         </section>
                     {% endfor %}
@@ -42,7 +42,7 @@
 
                 <div class="form__field">
                     <label for="senha">Senha:</label>
-                    <div class="input-box">
+                    <div class="input-box password-field">
                         <input type="password" placeholder="Senha" name="password" id="password" class="password-field" required>
                         <span class="password-toggle-icon" onclick="togglePassword('password')">
                             <i class="fas fa-eye"></i>
@@ -52,7 +52,7 @@
 
                 <div class="form__field">
                     <label for="confirmar_senha">Confirmar senha:</label>
-                    <div class="input-box">
+                    <div class="input-box password-field">
                         <input type="password" name="confirmar_senha" id="confirmar_senha" class="form-control password-field" placeholder="Digite sua senha novamente ..." required>
                         <span class="password-toggle-icon" onclick="togglePassword('confirmar_senha')">
                             <i class="fas fa-eye"></i>
@@ -83,4 +83,4 @@
         }
     </script>
 
-{% endblock 'body' %}
+{% endblock body %}

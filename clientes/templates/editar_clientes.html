@@ -1,0 +1,12 @@
+<!-- clientes/templates/clientes/editar_cliente.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Editar Cliente</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Salvar Alterações</button>
+    </form>
+{% endblock %}

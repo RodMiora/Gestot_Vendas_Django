@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "usuarios"
+    "usuarios",
+    "dashboards",
+    "clientes",
+    "produtos",
 ]
 
 MIDDLEWARE = [
@@ -141,3 +144,7 @@ MESSAGE_TAGS = {
     constants.INFO: 'alert-info',
     constants.WARNING: 'alert-warning',
 }
+
+
+
+

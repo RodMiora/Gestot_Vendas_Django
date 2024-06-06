@@ -13,11 +13,11 @@
 
         <form action="{% url 'login' %}" method="post" class="form login">
             {% csrf_token %}
-
+            
             <header class="login__header">
                 <h3 class="login__title">LOGIN</h3>
             </header>
-
+        
             <div class="login__body">
                 {% if messages %}
                     <br>
@@ -27,7 +27,7 @@
                         </section>
                     {% endfor %}
                 {% endif %}
-
+        
                 <div class="form__field">
                     <label for="username">Usuário:</label>
                     <div class="input-box">
@@ -38,32 +38,40 @@
                 <div class="form__field">
                     <label for="password">Senha:</label>
                     <div class="input-box">
-                        <input type="password" placeholder="Senha" name="password" id="password" required>
-                        <button type="button" id="mostrar-senha"><i class="far fa-eye"></i></button>
+                        <input type="password" placeholder="Senha" name="password" id="password" class="password-field" required>
+                        <span class="password-toggle-icon" onclick="togglePassword('password')">
+                            <i class="far fa-eye"></i>
+                        </span>
                     </div>
                 </div>
             </div>
-
+        
             <footer class="login__footer">
                 <input type="submit" value="Entrar" class="btn btn-success">
                 <a href="{% url 'cadastro' %}" class="btn btn-dark-color-outline">Não possuo uma conta</a>
             </footer>
-
+        
             <footer class="contact-footer">
                 <p>Produzido por: Rodrigo Miorini <a href="https://github.com/RodMiora/Gestot_Vendas_Django.git" target="_blank"><i class="fab fa-github"></i></a> RodMiora</p>
                 <p>Contato: rodrigomiorin@gmail.com</p>
             </footer>
         </form>
-    </div>
-
-    <script>
-        const mostrarSenhaBtn = document.getElementById('mostrar-senha');
-        const passwordInput = document.getElementById('password');
-
-        mostrarSenhaBtn.addEventListener('click', function() {
-            const tipo = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-            passwordInput.setAttribute('type', tipo);
-            this.querySelector('i').classList.toggle('fa-eye-slash');
-        });
-    </script>
+        
+        <script>
+            function togglePassword() {
+                var passwordField = document.getElementById('password');
+                var icon = document.querySelector('.password-toggle-icon i');
+        
+                if (passwordField.type === "password") {
+                    passwordField.type = "text";
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    passwordField.type = "password";
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            }
+        </script>
+        
 {% endblock %}

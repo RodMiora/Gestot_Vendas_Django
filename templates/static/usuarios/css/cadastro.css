@@ -1,8 +1,4 @@
-/* Definições de cores */
-
-
-  
-
+/* Definições de cores e outras variáveis */
 :root {
     --primary-color: #1dabb8; /* Cor principal */
     --secondary-color: #282830; /* Cor secundária */
@@ -11,19 +7,17 @@
     --gridWidth: 90%;
 }
 
-
 .grid {
     inline-size: var(--gridWidth);
     margin-inline: auto;
     max-inline-size: var(--gridMaxWidth);
-  }
+}
 
-body{
+body {
     background-color: #f0f0f0; /* Altere essa cor conforme necessário */
     margin: 0;
     font-family: Arial, sans-serif; /* Exemplo de fonte padrão */
 }
-
 
 /* Estilos para o cabeçalho */
 .login__header {
@@ -59,11 +53,9 @@ body{
 .login input[type='text'],
 .login input[type='password'],
 .login input[type='email'] {
-    
     border: 0.0625em solid #0c0c0c;
     padding: 1em 1.25em;
     width: 100%;
-    
 }
 
 .login label {
@@ -101,18 +93,58 @@ body{
     padding-right: 1.5em;
 }
 
-/* Outros estilos comuns podem ser adicionados conforme necessário */
-
-.input-error {
+/* Estilos para mensagens de erro */
+.alert {
     padding: 0.50em;
     margin: 0em 0;
-    border: 2px solid rgb(155, 4, 4);
+    border: 2px solid red;
     border-radius: 0.10em;
-}
-
-.alert.error {
+    margin-bottom: 10px; /* Espaçamento inferior para separar as mensagens */
     color: red;
     background-color: #f8d7da;
     border-color: #f5c6cb;
-  }
-  
+}
+
+.alert.error-usuario {
+    /* Estilos adicionais para erro de usuário, se necessário */
+}
+
+.alert.error-senha,
+.alert.error-confirmar-senha {
+    /* Estilos adicionais para erros de senha e confirmação de senha, se necessário */
+}
+
+/* Estiliza o título "Gestor de Vendas" */
+.login__title-gestor {
+    font-size: 2.0rem; /* Tamanho do título aumentado */
+    margin-top: 1; /* Reduz a margem superior para posicionamento mais alto */
+    text-align: center; /* Centraliza o título */
+    margin-top: 5%;
+}
+
+/* Estiliza apenas o "by" para ser exibido em minúsculas */
+.by-lowercase {
+    text-transform: lowercase !important;
+}
+
+/* Estilos para o ícone de visualização de senha */
+.password-toggle-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #ccc;
+}
+
+.password-toggle-icon:hover {
+    color: #1dabb8;
+}
+
+.password-field {
+    position: relative; /* Garante que a posição seja relativa a este container */
+}
+
+.password-field .password-toggle-icon {
+    right: 10px; /* Posiciona o ícone à direita */
+}
