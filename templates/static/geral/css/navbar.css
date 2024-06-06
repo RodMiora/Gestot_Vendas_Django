@@ -1,30 +1,67 @@
-/* navbar.css */
+/* Navbar */
 .navbar {
-    background-color: var(--secondary-color);
-    padding: 1em;
-    text-align: center;
+    background-color: #333;
+    color: white;
+    padding: 10px ;
+    height: 50px; /* Ajusta a altura da navbar conforme necessário */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.navbar__nav {
+.navbar-nav {
     list-style-type: none;
-    padding: 0;
     margin: 0;
+    padding: 2;
+    display: flex;
 }
 
-.navbar__item {
-    display: inline-block;
-    margin-right: 1em;
+.navbar-nav-left {
+    display: flex;
 }
 
-.navbar__link {
-    color: #ffffff;
+
+.navbar-nav-right {
+    display: flex;
+    margin-left: auto; /* Ensures the logout button is pushed to the right */
+    padding-right: 2em; /* Reduces right spacing */
+    margin-right: 2em; /* Increases right spacing */
+}
+
+.navbar-nav-right a {
+    color: white;
     text-decoration: none;
-    font-weight: bold;
-    padding: 0.5em 1em;
-    transition: background-color 0.3s;
+    padding: 10px 40px;
+    background-color: #dc3545; /* Red background color */
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
 }
 
-.navbar__link:hover {
-    background-color: #1dabb8;
-    border-radius: 4px;
+.navbar-nav-right a:hover {
+    background-color: #c82333; /* Darker red on hover */
 }
+
+.navbar-nav .nav-item {
+    margin-right: 20px;
+}
+
+.navbar-nav .nav-item:last-child {
+    margin-right: 0;
+}
+
+.navbar-nav .nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    font-size: 22px; /* Aumenta o tamanho da fonte para 18 pixels */
+}
+
+.navbar-nav .nav-link:hover {
+    background-color: #c0b406;
+    border-radius: 10px;
+}
+

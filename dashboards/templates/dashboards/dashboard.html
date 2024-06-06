@@ -1,10 +1,24 @@
 <!-- templates/dashboard.html -->
-{% extends 'base.html' %}
-
-{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'geral/css/navbar.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboards/css/dashboards.css' %}"> <!-- Estilos específicos do dashboard -->
+    <style>
+        body {
+            padding-top: 60px; /* Espaçamento para evitar que o conteúdo fique embaixo da navbar */
+        }
+    </style>
+</head>
+<body>
     {% include 'navbar.html' %}
+    <div class="content">
+        <h1>Bem-vindo ao Dashboard</h1>
+        <p>Aqui você verá informações importantes sobre o seu sistema.</p>
+    </div>
+</body>
+</html>
 
-    <!-- Conteúdo do dashboard -->
-    <h1>Bem-vindo ao Dashboard</h1>
-    <p>Aqui você verá informações importantes sobre o seu sistema.</p>
-{% endblock %}
