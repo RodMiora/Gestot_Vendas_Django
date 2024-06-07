@@ -1,45 +1,53 @@
 # clientes/views.py
 
-from django.shortcuts import get_object_or_404, redirect, render
-from .models import Cliente  # Importe o modelo de Cliente ou o modelo relevante
-from .forms import ClienteForm  # type: ignore # Importe o formulário de Cliente ou o formulário r
+from django.shortcuts import render, redirect
+from .forms import ClienteForm
+from .models import Cliente
 from django.contrib.auth.decorators import login_required
 
+def clientes(request):
+    # Esta função foi removida porque a lógica está agora em lista_clientes
+    pass
 
 @login_required
 def lista_clientes(request):
-    clientes = Cliente.objects.all()  # Exemplo: obtenha todos os clientes do banco de dados
-    return render(request, 'clientes/lista_clientes.html', {'clientes': clientes})
-
-@login_required
-def detalhes_cliente(request, id_cliente):
-    cliente = get_object_or_404(Cliente, id=id_cliente)
-    return render(request, 'clientes/detalhes_cliente.html', {'cliente': cliente})
-
-@login_required
-def novo_cliente(request):
     if request.method == 'POST':
         form = ClienteForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('lista_clientes')  # Redireciona para a lista de clientes após salvar
+            cliente = form.save(commit=False)
+            cliente.user = request.user  # Atribui diretamente o usuário autenticado ao cliente
+            cliente.save()
+            return redirect('lista_clientes')
     else:
         form = ClienteForm()
-    
-    return render(request, 'clientes/novo_cliente.html', {'form': form})
 
+    clientes = Cliente.objects.filter(user=request.user)
+    context = {
+        'form': form,
+        'clientes': clientes,
+        'username': request.user.username
+    }
+    return render(request, 'clientes/clientes.html', context)
 
-@login_required
+def detalhes_cliente(request, id_cliente):
+    cliente = Cliente.objects.get(id=id_cliente)
+    context = {
+        'cliente': cliente
+    }
+    return render(request, 'clientes/detalhes_cliente.html', context)
+
 def editar_cliente(request, id_cliente):
-    cliente = get_object_or_404(Cliente, pk=id_cliente)
-
+    cliente = Cliente.objects.get(id=id_cliente)
     if request.method == 'POST':
         form = ClienteForm(request.POST, instance=cliente)
         if form.is_valid():
             form.save()
-            return redirect('lista_clientes')  # Redireciona para a lista de clientes após salvar
+            return redirect('lista_clientes')
     else:
         form = ClienteForm(instance=cliente)
-    
-    return render(request, 'clientes/editar_cliente.html', {'form': form, 'cliente': cliente})
 
+    context = {
+        'form': form,
+        'cliente': cliente
+    }
+    return render(request, 'clientes/editar_cliente.html', context)
