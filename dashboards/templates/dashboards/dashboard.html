@@ -1,4 +1,3 @@
-<!-- templates/dashboard.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,19 +5,185 @@
     <title>Dashboard</title>
     {% load static %}
     <link rel="stylesheet" href="{% static 'geral/css/navbar.css' %}">
-    <link rel="stylesheet" href="{% static 'dashboards/css/dashboards.css' %}"> <!-- Estilos específicos do dashboard -->
+    <link rel="stylesheet" href="{% static 'dashboards/css/dashboards.css' %}">
     <style>
         body {
-            padding-top: 60px; /* Espaçamento para evitar que o conteúdo fique embaixo da navbar */
+            padding-top: 60px;
+        }
+
+        .chart-container {
+            width: 45%;
+            float: left;
+            margin: 2.5%;
+        }
+
+        .full-width-chart {
+            width: 90%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .month-selector {
+            float: right;
+            margin-right: 5%;
+        }
+
+        .content {
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
         }
     </style>
 </head>
 <body>
     {% include 'navbar.html' %}
     <div class="content">
-        <h1>Bem-vindo a sua sala de Dashboards, {{ username }}!</h1>
-        <p>Escolha um gráfico para visualizar as estatisticas do seu negócio.</p>
+        <h1>Bem-vindo a sua sala de Dashboards, {{ request.user.username }}!</h1>
+        <div class="chart-container clearfix">
+            <h2>Clientes por Período</h2>
+            <canvas id="clientesPorPeriodo"></canvas>
+            <div class="month-selector">
+                <label for="month">Escolha o mês:</label>
+                <select id="month">
+                    <option value="1">Janeiro</option>
+                    <option value="2">Fevereiro</option>
+                    <option value="3">Março</option>
+                    <option value="4">Abril</option>
+                    <option value="5">Maio</option>
+                    <option value="6">Junho</option>
+                    <option value="7">Julho</option>
+                    <option value="8">Agosto</option>
+                    <option value="9">Setembro</option>
+                    <option value="10">Outubro</option>
+                    <option value="11">Novembro</option>
+                    <option value="12">Dezembro</option>
+                </select>
+            </div>
+        </div>
+        <div class="chart-container clearfix">
+            <h2>Clientes por Categoria</h2>
+            <canvas id="clientesPorCategoria"></canvas>
+        </div>
+        <div class="full-width-chart">
+            <h2>Produtos</h2>
+            <canvas id="produtos"></canvas>
+        </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Dados fictícios iniciais
+            var clientesPorPeriodoData = {
+                labels: Array.from({ length: 31 }, (_, i) => i + 1),
+                datasets: [{
+                    label: 'Clientes por Dia',
+                    data: Array(31).fill(0), // Dados fictícios para iniciar
+                    fill: false,
+                    borderColor: 'rgb(75, 192, 192)',
+                    tension: 0.1
+                }]
+            };
+
+            var ctx1 = document.getElementById('clientesPorPeriodo').getContext('2d');
+            var clientesPorPeriodo = new Chart(ctx1, {
+                type: 'line',
+                data: clientesPorPeriodoData,
+                options: {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Clientes por Período'
+                    },
+                    scales: {
+                        x: {
+                            title: {
+                                display: true,
+                                text: 'Dias do Mês'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Número de Clientes'
+                            },
+                            ticks: {
+                                beginAtZero: true,
+                                stepSize: 1,
+                                max: 10
+                            }
+                        }
+                    }
+                }
+            });
+
+            document.getElementById('month').addEventListener('change', function () {
+                var selectedMonth = this.value;
+                // Aqui você chamaria uma função AJAX para buscar os dados reais para o mês selecionado
+                fetch(`/dashboard/clientes_por_periodo/${selectedMonth}/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Atualize os dados do gráfico
+                        clientesPorPeriodo.data.datasets[0].data = data.clientes_por_dia;
+                        clientesPorPeriodo.update();
+                    });
+            });
+
+            // Dados fictícios para Clientes por Categoria
+            var categorias = {{ categorias|safe }};
+            var clientesPorCategoriaData = {{ clientes_por_categoria|safe }};
+            var ctx2 = document.getElementById('clientesPorCategoria').getContext('2d');
+            var clientesPorCategoria = new Chart(ctx2, {
+                type: 'pie',
+                data: {
+                    labels: categorias,
+                    datasets: [{
+                        data: clientesPorCategoriaData,
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Clientes por Categoria'
+                    }
+                }
+            });
+
+            // Dados fictícios para Produtos
+            var ctx3 = document.getElementById('produtos').getContext('2d');
+            var produtos = new Chart(ctx3, {
+                type: 'bar',
+                data: {
+                    labels: ['Produto A', 'Produto B', 'Produto C'],
+                    datasets: [{
+                        label: 'Quantidade de Produtos',
+                        data: [0, 0, 0], // Dados fictícios para produtos
+                        backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: 'Produtos'
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
-
