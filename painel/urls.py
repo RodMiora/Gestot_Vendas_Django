@@ -11,5 +11,6 @@ urlpatterns = [
     path('dashboard/', include('dashboards.urls')),
     path('clientes/', include('clientes.urls')), 
     path('produtos/', include('produtos.urls')), 
+    path('dashboard/clientes/', include('clientes.urls')),
     path("", redirect_to_login),
 ]

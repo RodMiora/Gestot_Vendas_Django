@@ -1,13 +1,9 @@
-# clientes/views.py
-
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView
 from .forms import ClienteForm
 from .models import Cliente
 from django.contrib.auth.decorators import login_required
-
-def clientes(request):
-    # Esta função foi removida porque a lógica está agora em lista_clientes
-    pass
+from django.utils.decorators import method_decorator
 
 @login_required
 def lista_clientes(request):
@@ -15,7 +11,7 @@ def lista_clientes(request):
         form = ClienteForm(request.POST)
         if form.is_valid():
             cliente = form.save(commit=False)
-            cliente.user = request.user  # Atribui diretamente o usuário autenticado ao cliente
+            cliente.user = request.user
             cliente.save()
             return redirect('lista_clientes')
     else:
@@ -29,20 +25,39 @@ def lista_clientes(request):
     }
     return render(request, 'clientes/clientes.html', context)
 
+
+@login_required
 def detalhes_cliente(request, id_cliente):
-    cliente = Cliente.objects.get(id=id_cliente)
+    cliente = get_object_or_404(Cliente, id=id_cliente)
     context = {
         'cliente': cliente
     }
     return render(request, 'clientes/detalhes_cliente.html', context)
 
+@method_decorator(login_required, name='dispatch')
+class ClienteListView(ListView):
+    model = Cliente
+    template_name = 'clientes/cliente_list.html'
+    context_object_name = 'clientes'
+
+    def get_queryset(self):
+        return Cliente.objects.filter(user=self.request.user)
+
+# clientes/views.py
+
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import ClienteForm
+from .models import Cliente
+
+@login_required
 def editar_cliente(request, id_cliente):
-    cliente = Cliente.objects.get(id=id_cliente)
+    cliente = get_object_or_404(Cliente, id=id_cliente)
+
     if request.method == 'POST':
         form = ClienteForm(request.POST, instance=cliente)
         if form.is_valid():
             form.save()
-            return redirect('lista_clientes')
+            return redirect('clientes_dashboard')  # Redireciona para a página de clientes após editar
     else:
         form = ClienteForm(instance=cliente)
 
