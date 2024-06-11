@@ -4,6 +4,10 @@ from .forms import ClienteForm
 from .models import Cliente
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.shortcuts import render, redirect, get_object_or_404
+from .forms import ClienteForm
+from .models import Cliente
+
 
 @login_required
 def lista_clientes(request):
@@ -42,12 +46,6 @@ class ClienteListView(ListView):
 
     def get_queryset(self):
         return Cliente.objects.filter(user=self.request.user)
-
-# clientes/views.py
-
-from django.shortcuts import render, redirect, get_object_or_404
-from .forms import ClienteForm
-from .models import Cliente
 
 @login_required
 def editar_cliente(request, id_cliente):

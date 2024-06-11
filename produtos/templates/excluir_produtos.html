@@ -1,7 +1,0 @@
-<!-- produtos/excluir_produto.html -->
-<h2>Confirmação de Exclusão</h2>
-<p>Deseja realmente excluir o produto {{ produto.nome }}?</p>
-<form method="POST">
-    {% csrf_token %}
-    <button type="submit">Confirmar Exclusão</button>
-</form>
